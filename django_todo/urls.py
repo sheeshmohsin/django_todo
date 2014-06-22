@@ -5,8 +5,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'django_todo.views.home', name='home'),
+    url(r'^$', 'django_todo.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
+    url(r'^accounts/', include('todo.urls', namespace="todo")),
     url(r'^admin/', include(admin.site.urls)),
 )
