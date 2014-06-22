@@ -1,8 +1,12 @@
-from django.shortcuts import render_to_response, render
-from django.http import HttpResponseRedirect
+from forms import TodoListForm
 from django.contrib import auth
+from django.template import RequestContext
+from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render_to_response, render
+from django.contrib.auth.decorators import login_required
+
 
 def login(request):
 	c = {}
@@ -20,8 +24,10 @@ def auth_view(request):
 	else:
 		return HttpResponseRedirect('/accounts/invalid')
 
+@login_required
 def loggedin(request):
-	return render_to_response('loggedin.html', {'full_name':request.user.username})
+	tasks = request.user.todolist_set.all()
+	return render_to_response('loggedin.html', {'full_name':request.user.username, 'tasks':tasks}, context_instance=RequestContext(request))
 
 def invalid_login(request):
 	return render_to_response('invalid_login.html')
@@ -47,3 +53,10 @@ def register_user(request):
 
 def register_success(request):
 	return render_to_response('register_success.html')
+
+@login_required
+def createtask(request):
+	task = request.POST.get('task', '')
+	status = request.POST.get('task', '')
+	request.user.todolist_set.create(task=task, status=status)
+	return HttpResponseRedirect('/accounts/loggedin/')

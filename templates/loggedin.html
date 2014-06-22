@@ -6,5 +6,24 @@
 
 	<h2>Hi {{ full_name }} you are now logged in!</h2>
 	<p>Click <a href="/accounts/logout/">here</a> to logout.</p>
+	<br>
+		Add task<br>
+<form action="/accounts/createtask/" method="post">{% csrf_token %}
+	<textarea cols="40" rows="1" name="task"></textarea><br>
+	Status:<br>
+	<select name="status">
+		<option value="Pending">Pending</option>
+		<option value="Complete">Complete</option>
+	</select><br>
+	<input type="submit" value="Add Task"/>
+</form>
+<br><br>
+<b>Task Details:</b><br>
+	{% for task in tasks %}
+	Task: {{ task.task }}, &nbsp;status:
+	{{ task.status }}<br>
+	{% endfor %}
+	<br>
+
 
 {% endblock %}

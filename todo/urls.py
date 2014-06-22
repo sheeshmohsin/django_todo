@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'todo.views.logout'),
     url(r'^loggedin/$', 'todo.views.loggedin'),
     url(r'^invalid/$', 'todo.views.invalid_login'),
+    url(r'^createtask/$', 'todo.views.createtask'),
     url(r'^register/$', 'todo.views.register_user'),
     url(r'^register_success/$', 'todo.views.register_success'),
     
