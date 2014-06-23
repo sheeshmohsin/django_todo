@@ -1,22 +1,53 @@
 {% extends "base.html" %}
 
-
+{% load static %}
 {% block title %}Login{% endblock %}
 
 {% block body %}
+<link href="{% static "assets/bootstrap/examples/signin/signin.css" %}" rel="stylesheet">
+    <div class="navbar-wrapper">
+      <div class="container">
 
-{% if form.errors %}
-    <p class="error">Sorry, that's not a valid username or password.</p>
-{% endif %}
+        <div class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">&nbsp;&nbsp;Todo&nbsp;&nbsp;</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/accounts/register/">Register</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-<form action="/accounts/auth/" method="post">{% csrf_token %}
-	<label for="username">User name:</label>
-	<input type="text" name="username" value="" id="username">
-	<label for="password">Password:</label>
-	<input type="password" name="password" value="" id="password">
+      </div>
+    </div>
 
-	<input type="submit" value="login"/>
+    <div class="container marketing">
 
-</form>
+ 	<div class="container">
+		<form action="/accounts/auth/" method="post" class="form-signin">{% csrf_token %}
+        	<h2 class="form-signin-heading">Please sign in</h2>
+        	<input type="text" class="form-control" placeholder="Username" name="username" autofocus>
+        	<input type="password" class="form-control" name="password" placeholder="Password">
+        	<label class="checkbox">
+          		<input type="checkbox" value="remember-me"> Remember me
+        	</label>
+        	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      	</form>
+    </div> <!-- /container -->
+
+
+
+    
+
+
 
 {% endblock %}

@@ -1,11 +1,106 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Home-{% block title %}Todo{% endblock %}</title>
-</head>
-<body>
-	{% block body %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-	{% endblock %}
-</body>
+    <title>Home-{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "assets/bootstrap/dist/css/bootstrap.css" %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="{% static "assets/bootstrap/assets/js/html5shiv.js" %}"></script>
+      <script src="{% static "assets/bootstrap/assets/js/respond.min.js" %}"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "assets/bootstrap/examples/carousel/carousel.css" %}" rel="stylesheet">
+    <style>
+.connecting {
+    width:2em;
+    height:2em;
+}
+.like {
+    width:3em;
+}
+    </style>
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+
+
+
+{% block body %}
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+      <!-- News letter subscription -->
+      <div class="row">
+        <div class="col-lg-6">
+          <p><b><i>Connect with us on</i></b></p><br>
+<table>
+    <tr>
+    <td class="like"><a href="#"><img class="connecting" src="{% static "assets/images/facebook.jpg" %}" alt="Facebook" /></a></td>
+    <td class="like"><a href="#"><img class="connecting" src="{% static "assets/images/twitter.jpg" %}" alt="Twitter" /></a></td>
+    <td class="like"><a href="#"><img class="connecting" src="{% static "assets/images/google+.jpg" %}" alt="Google Plus" /></a></td>
+    <td class="like"><a href="#"><img class="connecting" src="{% static "assets/images/linkedin.jpg" %}" alt="Linkedin" /></a></td>
+    </tr>
+</table>
+        </div>
+        <div class="col-lg-6">
+          <p><b><i>Subscribe to our newsletter:</i></b></p><br>
+          <form action="/subscribe/" class="navbar-form" method="post" name="myForm">{% csrf_token %}
+            <div class="form-group">
+              <input type="text" placeholder="Your Name" name="name" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Email" name="email" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <!-- End of News letter subscription -->
+
+
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2014 Sheesh Mohsin. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static "assets/bootstrap/assets/js/jquery.js" %}"></script>
+    <script src="{% static "assets/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "assets/bootstrap/assets/js/holder.js" %}"></script>
+  </body>
 </html>

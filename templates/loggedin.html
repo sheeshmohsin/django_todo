@@ -3,27 +3,96 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
+    <div class="navbar-wrapper">
+      <div class="container">
 
-	<h2>Hi {{ full_name }} you are now logged in!</h2>
-	<p>Click <a href="/accounts/logout/">here</a> to logout.</p>
-	<br>
-		Add task<br>
-<form action="/accounts/createtask/" method="post">{% csrf_token %}
-	<textarea cols="40" rows="1" name="task"></textarea><br>
-	Status:<br>
-	<select name="status">
-		<option value="Pending">Pending</option>
-		<option value="Complete">Complete</option>
-	</select><br>
-	<input type="submit" value="Add Task"/>
-</form>
-<br><br>
-<b>Task Details:</b><br>
-	{% for task in tasks %}
-	Task: {{ task.task }}, &nbsp;status:
-	{{ task.status }}<br>
-	{% endfor %}
-	<br>
+        <div class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">&nbsp;&nbsp;Todo&nbsp;&nbsp;</a>
+            </div>
+            <div class="navbar-collapse collapse">
+            	<ul class="nav navbar-nav">
+                	<li class="active"><a href="/">Home</a></li>
+                	<li><a href="/accounts/register/">Register</a></li>
+              	</ul>
+            	<ul class="nav navbar-nav navbar-right">
+      				<li><a href="/accounts/logout/">Logout</a></li>
+      			</ul> 
+      		</div>
+          </div>
+        </div>
 
+      </div>
+    </div>
+
+     <div class="container marketing">
+     	<div class="row">
+     		<div class="well">
+     			<h2>Hi {{ full_name }} you are now logged in!</h2>
+     		</div>
+     	</div>
+     	<div class="row">
+     		<div class="well">
+     			<form action="/accounts/createtask/" class="form-horizontal" method="post">{% csrf_token %}
+  					<fieldset>
+    					<legend>Add Task</legend>
+    				    <div class="form-group">
+      						<label for="textArea" class="col-lg-2 control-label">Add Task</label>
+      						<div class="col-lg-10">
+        						<textarea class="form-control" rows="3" id="textArea" name="task"></textarea>
+      						</div>
+    					</div>
+    					<div class="form-group">
+      						<label for="select" class="col-lg-2 control-label">Status</label>
+      						<div class="col-lg-10">
+        						<select class="form-control" id="select" name="status">
+          							<option value="Pending">Pending</option>
+          							<option value="complete">Complete</option>
+        						</select>
+      						</div>
+    					</div>
+    					<div class="form-group">
+      						<div class="col-lg-10 col-lg-offset-2">
+        						<button class="btn btn-default">Cancel</button>
+        						<button type="submit" class="btn btn-primary">Add Task</button>
+      						</div>
+    					</div>
+    				</fieldset>
+				</form>
+     		</div>
+     	</div>
+     	<div class="row">
+     		<div class="well">
+     			<h4>Your Tasks</h4>
+     		</div>
+     	</div>
+     	<div class="row">
+     		<div class="col-sm-12">
+     			<table class="table table-striped table-hover ">
+  					<thead>
+    					<tr>
+      					<th>Tasks</th>
+      					<th>Status</th>
+      					<th></th>
+    					</tr>
+  					</thead>
+  					<tbody>
+  						{% for task in tasks %}
+    					<tr>
+      						<td class="col-lg-4" style="text-align:left">{{ task.task|truncatewords:"12" }}</td>
+      						<td class="col-lg-4" style="text-align:left">{{ task.status }}</td>
+      						<td class="col-lg-4" style="text-align:left">{% if task.status == "Pending" %}<a href="/accounts/task/complete/{{task.id}}/"><button type="button" class="btn btn-success">Complete</button></a>{% endif %}&nbsp;&nbsp;<a href="/accounts/task/delete/{{task.id}}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+    					</tr>
+    					{% endfor %}
+    				</tbody>
+    			</table>
+        	</div><!-- /.col-sm-4 -->
+     	</div>
 
 {% endblock %}

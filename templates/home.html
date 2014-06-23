@@ -1,7 +1,42 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}Todo{% endblock %}
 
 {% block body %}
-<a href="/accounts/register/">Register</a> and <a href="/accounts/login/">Login</a>
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <div class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">&nbsp;&nbsp;Todo&nbsp;&nbsp;</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/accounts/register/">Register</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+     <div class="container marketing">
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Todo!</h1>
+        <p>This is a simple todo app. Here you can manage your tasks by adding tasks here.</p>
+        <p><a class="btn btn-primary btn-lg" href="/accounts/login/">Login Here &raquo;</a></p>
+      </div>
+    </div>
 {% endblock %}

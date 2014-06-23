@@ -1,4 +1,3 @@
-from forms import TodoListForm
 from django.contrib import auth
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -20,9 +19,9 @@ def auth_view(request):
 
 	if user is not None:
 		auth.login(request, user)
-		return HttpResponseRedirect('/accounts/loggedin')
+		return HttpResponseRedirect('/accounts/loggedin/')
 	else:
-		return HttpResponseRedirect('/accounts/invalid')
+		return HttpResponseRedirect('/accounts/invalid/')
 
 @login_required
 def loggedin(request):
@@ -37,19 +36,23 @@ def logout(request):
 	return render_to_response('logout.html')
 
 def register_user(request):
-	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-		if form.is_valid():
-			form.save()
-			return HttpResponseRedirect('/accounts/register_success')
+	if request.user.is_authenticated():
+		return HttpResponseRedirect('/accounts/loggedin')
+	else:
+		if request.method == 'POST':
+			form = UserCreationForm(request.POST)
+			if form.is_valid():
+				form.save()
+				return HttpResponseRedirect('/accounts/register_success/')
+			else:
+				return render_to_response('register.html', {'form':form }, context_instance=RequestContext(request))
 
+		args = {}
+		args.update(csrf(request))
 
-	args = {}
-	args.update(csrf(request))
+		args['form'] = UserCreationForm()
+		return render_to_response('register.html', args)
 
-	args['form'] = UserCreationForm()
-	print args
-	return render_to_response('register.html', args)
 
 def register_success(request):
 	return render_to_response('register_success.html')
@@ -57,6 +60,19 @@ def register_success(request):
 @login_required
 def createtask(request):
 	task = request.POST.get('task', '')
-	status = request.POST.get('task', '')
+	status = request.POST.get('status', '')
 	request.user.todolist_set.create(task=task, status=status)
+	return HttpResponseRedirect('/accounts/loggedin/')
+
+@login_required
+def delete(request, pk):
+	task = request.user.todolist_set.get(id = pk)
+	task.delete()
+	return HttpResponseRedirect('/accounts/loggedin/')
+
+@login_required
+def complete(request, pk):
+	task = request.user.todolist_set.get(id = pk)
+	task.status = "Complete"
+	task.save()
 	return HttpResponseRedirect('/accounts/loggedin/')
